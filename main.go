@@ -22,7 +22,6 @@ type Product struct {
 	Price    float64 `json:"price"`
 }
 
-
 func initDB() {
 	var err error
 	db, err = sql.Open("mysql", "root:password@tcp(mysql:3306)/products_db")
@@ -30,7 +29,6 @@ func initDB() {
 		log.Fatalf("Error connecting to database: %s", err)
 	}
 }
-
 
 func createProduct(w http.ResponseWriter, r *http.Request) {
 	var product Product
@@ -65,7 +63,6 @@ func getProduct(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(product)
 }
 
-
 func updateProduct(w http.ResponseWriter, r *http.Request) {
 	id, _ := strconv.Atoi(mux.Vars(r)["id"])
 	var product Product
@@ -81,9 +78,8 @@ func updateProduct(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.WriteHeader(http.StatusNoContent)
+	json.NewEncoder(w).Encode(product)
 }
-
 
 func listProducts(w http.ResponseWriter, r *http.Request) {
 	rows, err := db.Query("SELECT id, name, category, price FROM products")
@@ -106,7 +102,6 @@ func listProducts(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(products)
 }
 
-
 func listProductsByCategory(w http.ResponseWriter, r *http.Request) {
 	category := mux.Vars(r)["category"]
 	rows, err := db.Query("SELECT id, name, category, price FROM products WHERE category = ?", category)
@@ -128,7 +123,6 @@ func listProductsByCategory(w http.ResponseWriter, r *http.Request) {
 
 	json.NewEncoder(w).Encode(products)
 }
-
 
 func main() {
 	initDB()
