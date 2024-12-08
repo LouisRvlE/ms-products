@@ -52,6 +52,19 @@ func createProduct(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(product)
 }
 
+func getProduct(w http.ResponseWriter, r *http.Request) {
+	id, _ := strconv.Atoi(mux.Vars(r)["id"])
+	row := db.QueryRow("SELECT id, name, category, price FROM products WHERE id = ?", id)
+
+	var product Product
+	if err := row.Scan(&product.ID, &product.Name, &product.Category, &product.Price); err != nil {
+		http.Error(w, err.Error(), http.StatusNotFound)
+		return
+	}
+
+	json.NewEncoder(w).Encode(product)
+}
+
 
 func updateProduct(w http.ResponseWriter, r *http.Request) {
 	id, _ := strconv.Atoi(mux.Vars(r)["id"])
