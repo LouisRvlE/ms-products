@@ -14,6 +14,12 @@ curl http://localhost:3004/products
 curl http://localhost:3004/products/category/electronics
 ```
 
+**3. Get product byb id:**
+
+```bash
+curl http://localhost:3004/products/1
+```
+
 **3. Create a new product:**
 
 ```bash
