@@ -1,6 +1,6 @@
-sudo docker build -t ms-products .
-sudo docker compose up -d
 sudo docker compose down
+sudo docker build -t ms-products .
+sudo docker compose up -d --no-deps --build app
 
 **1. List all products:**
 

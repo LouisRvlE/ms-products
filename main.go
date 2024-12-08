@@ -135,6 +135,7 @@ func main() {
 
 	r := mux.NewRouter()
 	r.HandleFunc("/products", createProduct).Methods("POST")
+	r.HandleFunc("/products/{id:[0-9]+}", getProduct).Methods("GET")
 	r.HandleFunc("/products/{id:[0-9]+}", updateProduct).Methods("PUT")
 	r.HandleFunc("/products", listProducts).Methods("GET")
 	r.HandleFunc("/products/category/{category}", listProductsByCategory).Methods("GET")
